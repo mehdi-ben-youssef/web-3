@@ -1,9 +1,21 @@
-const mysql =require('mysql2/promise');
+const pool = require('./db');
+const { getAllBooks } = require('./queries');
 
-const pool = mysql.createPool({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'library_db',
-    connectionLimit: 10,
-});
+async function main() {
+  try {
+    console.log('--- Connection test ---');
+    const conn = await pool.getConnection();
+    console.log('Connected to MySQL ✓');
+    conn.release();
+
+    console.log('\n--- All books ---');
+    console.log(await getAllBooks());
+
+  } catch (error) {
+    console.error('Something went wrong:', error.message);
+  } finally {
+    await pool.end();
+  }
+}
+
+main();
