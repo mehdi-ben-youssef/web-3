@@ -4,5 +4,9 @@ async function getAllBooks() {
   const [rows] = await pool.query('SELECT id, title, available FROM books');
   return rows;
 }
+async function getBookById(id) {
+  const [rows] = await pool.query('SELECT id, title, available FROM books WHERE id = ?', [id]);
+  return rows[0];
+}
  
-module.exports = { getAllBooks };
+module.exports = { getAllBooks , getBookById };
