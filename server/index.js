@@ -1,5 +1,5 @@
 const pool = require('./db');
-const { getAllBooks } = require('./queries');
+const { getAllBooks,getBookById} = require('./queries');
 
 async function main() {
   try {
